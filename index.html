@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Travelling Salesman Problem - Branch and Bound
+</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #333;
+    line-height: 1.7;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
+}
+
+.hero {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 50px 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+h2 {
+    color: #1e3a8a;
+    margin-bottom: 15px;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+ul {
+    padding-left: 25px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background: #2563eb;
+    color: white;
+}
+
+pre {
+    background: #111827;
+    color: #00ff88;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.result {
+    background: #eef4ff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="hero">
+
+<h1>
+Travelling Salesman Problem
+</h1>
+
+<p>
+Branch and Bound with Reduced Cost Matrix
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Problem Statement</h2>
+
+<p>
+Given a 5-city Travelling Salesman Problem
+with a known cost matrix, find the minimum
+cost Hamiltonian cycle using the Branch and
+Bound technique.
+</p>
+
+<p>
+A lower-bound estimation based on reduced
+cost matrices is used to eliminate branches
+that cannot produce a better solution.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Objectives</h2>
+
+<ul>
+
+<li>Implement the Travelling Salesman Problem.</li>
+
+<li>Use Branch and Bound for optimization.</li>
+
+<li>Calculate lower bounds using matrix reduction.</li>
+
+<li>Prune non-promising branches.</li>
+
+<li>Find the optimal Hamiltonian cycle.</li>
+
+<li>Calculate the minimum tour cost.</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Cost Matrix</h2>
+
+<table>
+
+<tr>
+<th>City</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+
+<tr>
+<th>0</th>
+<td>0</td>
+<td>20</td>
+<td>30</td>
+<td>10</td>
+<td>11</td>
+</tr>
+
+<tr>
+<th>1</th>
+<td>15</td>
+<td>0</td>
+<td>16</td>
+<td>4</td>
+<td>2</td>
+</tr>
+
+<tr>
+<th>2</th>
+<td>3</td>
+<td>5</td>
+<td>0</td>
+<td>2</td>
+<td>4</td>
+</tr>
+
+<tr>
+<th>3</th>
+<td>19</td>
+<td>6</td>
+<td>18</td>
+<td>0</td>
+<td>3</td>
+</tr>
+
+<tr>
+<th>4</th>
+<td>16</td>
+<td>4</td>
+<td>7</td>
+<td>16</td>
+<td>0</td>
+</tr>
+
+</table>
+
+</div>
+
+
+<div class="card">
+
+<h2>Branch and Bound Approach</h2>
+
+<p>
+The Branch and Bound algorithm systematically
+explores possible tours while calculating a
+lower bound for every partial tour.
+</p>
+
+<ol>
+
+<li>Reduce every row of the cost matrix.</li>
+
+<li>Reduce every column of the matrix.</li>
+
+<li>Calculate the reduction cost.</li>
+
+<li>Branch by selecting an unvisited city.</li>
+
+<li>Calculate the lower bound of each branch.</li>
+
+<li>Discard branches whose lower bound is
+greater than the current best solution.</li>
+
+<li>Continue until an optimal Hamiltonian cycle
+is obtained.</li>
+
+</ol>
+
+</div>
+
+
+<div class="card">
+
+<h2>Lower Bound</h2>
+
+<pre>
+Lower Bound =
+Current Cost
++ Matrix Reduction Cost
+</pre>
+
+<p>
+Row and column reduction ensures that every
+remaining row and column contains at least
+one zero. The sum of the reductions provides
+a lower-bound estimate for the remaining tour.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Optimal Tour</h2>
+
+<div class="result">
+
+<h3>
+0 → 3 → 1 → 4 → 2 → 0
+</h3>
+
+<p>
+Minimum Tour Cost:
+<strong>28</strong>
+</p>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Cost Calculation</h2>
+
+<pre>
+
+0 → 3 = 10
+
+3 → 1 = 6
+
+1 → 4 = 2
+
+4 → 2 = 7
+
+2 → 0 = 3
+
+----------------
+
+Total = 10 + 6 + 2 + 7 + 3
+
+      = 28
+
+</pre>
+
+</div>
+
+
+<div class="card">
+
+<h2>Complexity Analysis</h2>
+
+<table>
+
+<tr>
+<th>Parameter</th>
+<th>Complexity</th>
+</tr>
+
+<tr>
+<td>Worst Case Time</td>
+<td>O(N!)</td>
+</tr>
+
+<tr>
+<td>Space Complexity</td>
+<td>O(N²)</td>
+</tr>
+
+</table>
+
+<p>
+Branch and Bound can significantly reduce
+the practical search space through pruning,
+although the worst-case complexity remains
+factorial.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Sample Output</h2>
+
+<pre>
+
+TRAVELLING SALESMAN PROBLEM
+BRANCH AND BOUND
+
+Cost Matrix:
+
+[0, 20, 30, 10, 11]
+[15, 0, 16, 4, 2]
+[3, 5, 0, 2, 4]
+[19, 6, 18, 0, 3]
+[16, 4, 7, 16, 0]
+
+Optimal Tour:
+0 -> 3 -> 1 -> 4 -> 2 -> 0
+
+Minimum Cost: 28
+
+Optimal Hamiltonian Cycle Found Successfully.
+
+</pre>
+
+</div>
+
+
+<div class="card">
+
+<h2>Applications</h2>
+
+<ul>
+
+<li>Route Optimization</li>
+
+<li>Delivery Planning</li>
+
+<li>Logistics Management</li>
+
+<li>Vehicle Routing</li>
+
+<li>Network Optimization</li>
+
+<li>Scheduling Problems</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>Conclusion</h2>
+
+<p>
+The Branch and Bound technique successfully
+solves the 5-city Travelling Salesman Problem
+by exploring possible tours and eliminating
+non-promising branches using lower-bound
+estimation.
+</p>
+
+<p>
+For the given cost matrix, the optimal
+Hamiltonian cycle is
+<strong>0 → 3 → 1 → 4 → 2 → 0</strong>,
+with a minimum total cost of
+<strong>28</strong>.
+</p>
+
+</div>
+
+</div>
+
+
+<footer>
+
+<strong>Developed by Akash N</strong><br>
+
+B.E. Computer Science and Engineering (AI)<br>
+
+Chennai Institute of Technology
+
+</footer>
+
+</body>
+
+</html>
